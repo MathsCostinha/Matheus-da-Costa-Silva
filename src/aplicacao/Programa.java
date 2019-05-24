@@ -16,7 +16,7 @@ public class Programa {
 
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
-		Scanner ler = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("exemplo-jpa");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -26,7 +26,7 @@ public class Programa {
 				+"Para atualizar um pedido: Digite 4\n"
 				+"Para remover um pedido: Digite 5\n"
 				+"Para sair do Banco de Dados: Digite 0\n");
-		int escolha = ler.nextInt();
+		int escolha = scanner.nextInt();
 		while(escolha != 0) {
 			if(escolha==1) {
 				String jpql = "SELECT p FROM pedido p";
@@ -39,11 +39,11 @@ public class Programa {
 					+"Para atualizar um pedido: Digite 4\n"
 					+"Para remover um pedido: Digite 5\n"
 					+"Para sair do Banco de Dados: Digite 0\n");
-				escolha = ler.nextInt();
+				escolha = scanner.nextInt();
 			}
 			else if(escolha==2) {
 				System.out.println("Digite o ID a ser procurado: ");
-				int id = ler.nextInt();
+				int id = scanner.nextInt();
 				Pedido pedidoFound= entityManager.find(Pedido.class,id);
 				if(pedidoFound != null) {
 					System.out.println(pedidoFound);
@@ -54,7 +54,7 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 				else if(pedidoFound==null ) {
 					System.out.println("ID não encontrado!");
@@ -65,17 +65,18 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 			}
 			else if (escolha==3) {
 				System.out.println("Digite a data: ");
-				String dataRecebida = ler.nextLine();
+				String dataRecebida = scanner.next();
 				DateFormat df = new SimpleDateFormat("dd/MM/yyyy");  
 				Date dt = df.parse(dataRecebida);
 				System.out.println(dt);
+				
 				System.out.println("Digite o valor: ");
-				float valor = ler.nextFloat();
+				float valor = scanner.nextFloat();
 				Pedido pedido = new Pedido(null, dt, valor);
 				entityManager.getTransaction().begin();
 				entityManager.persist(pedido);
@@ -88,11 +89,11 @@ public class Programa {
 					+"Para atualizar um pedido: Digite 4\n"
 					+"Para remover um pedido: Digite 5\n"
 					+"Para sair do Banco de Dados: Digite 0\n");
-				escolha = ler.nextInt();
+				escolha = scanner.nextInt();
 			}
 			else if(escolha==4) {
 				System.out.println("Digite o ID a ser atualizado: ");
-				int id = ler.nextInt();
+				int id = scanner.nextInt();
 				Pedido pedidoFound = entityManager.find(Pedido.class,id);
 				if(pedidoFound==null) {
 					System.out.println("ID não existente!");
@@ -103,14 +104,14 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 			else if(pedidoFound!=null) {
 				System.out.println("Se deseja atualizar:\n data: Digite 1\n valor: Digite 2\n Os dois anteriores: Digite 3");
-				int escolhaDeAlteracao = ler.nextInt();
+				int escolhaDeAlteracao = scanner.nextInt();
 				if(escolhaDeAlteracao==1) {
 					System.out.println("Alterar data para: ");
-					String dataRecebida = ler.nextLine();
+					String dataRecebida = scanner.nextLine();
 					DateFormat df = new SimpleDateFormat("dd/MM/yyyy");  
 					Date dt = df.parse(dataRecebida);
 					System.out.println(dt);
@@ -126,11 +127,11 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 				else if(escolhaDeAlteracao==2) {
 					System.out.println("Alterar valor para: ");
-					float novovalor = ler.nextFloat();
+					float novovalor = scanner.nextFloat();
 					pedidoFound.setValor(novovalor);
 					entityManager.getTransaction().begin();
 					entityManager.persist(pedidoFound);
@@ -143,17 +144,17 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 				else if(escolhaDeAlteracao==3) {
 					System.out.println("Alterar data para: ");
-					String dataRecebida = ler.nextLine();
+					String dataRecebida = scanner.nextLine();
 					DateFormat df = new SimpleDateFormat("dd/MM/yyyy");  
 					Date dt = df.parse(dataRecebida);
 					System.out.println(dt);
 					pedidoFound.setData(dt);
 					System.out.println("Alterar valor para: ");
-					float novovalor = ler.nextFloat();
+					float novovalor = scanner.nextFloat();
 					pedidoFound.setValor(novovalor);
 					entityManager.getTransaction().begin();
 					entityManager.persist(pedidoFound);
@@ -166,13 +167,13 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 			}
 			}
 			else if(escolha==5) {
 				System.out.println("Digite o ID que deseja remover: ");
-				int id=ler.nextInt();
+				int id=scanner.nextInt();
 				Pedido pedidoFound= entityManager.find(Pedido.class,id);
 				if(pedidoFound!=null) {
 					entityManager.getTransaction().begin();
@@ -186,7 +187,7 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 				else if(pedidoFound==null) {
 					System.out.println("ID não existente!");
@@ -197,7 +198,7 @@ public class Programa {
 						+"Para atualizar um pedido: Digite 4\n"
 						+"Para remover um pedido: Digite 5\n"
 						+"Para sair do Banco de Dados: Digite 0\n");
-					escolha = ler.nextInt();
+					escolha = scanner.nextInt();
 				}
 			}	
 		}	
